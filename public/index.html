@@ -2,123 +2,33 @@
 <html>
 
 <head>
-  <title>Web Content Downloader</title>
+    <title>Web Content Downloader</title>
 </head>
 <style>
-  .indexfield {
-    width: 100px;
-  }
+    .indexfield {
+        width: 100px;
+    }
 
-  input[type="text"],
-  input[type="number"] {
-    width: 100%;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-  }
+    input[type="text"],
+    input[type="number"] {
+        width: 100%;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
 </style>
 
 <body>
-  <h1>Web Content Downloader</h1>
-  <form id="downloadForm" action="/download" method="POST">
-    <table border="1" cellpadding="1" cellspacing="1" style="width:448.6px">
-      <tbody>
-        <tr>
-          <td style="width:140px">Book Name</td>
-          <td style="width:296px"> <input type="text" name="bookName" placeholder="Enter Book Name" required></td>
-        </tr>
-        <tr>
-          <td style="width:140px">URL</td>
-          <td style="width:296px"><input type="text" name="url" placeholder="Enter URL" required></td>
-        </tr>
-        <tr>
-          <td style="width:140px">Start chapter</td>
-          <td style="width:296px"><input type="number" name="start" placeholder="Start Index" required></td>
-        </tr>
-        <tr>
-          <td style="width:140px">Finish chapter</td>
-          <td style="width:296px"><input type="number" name="finish" placeholder="Finish Index" required></td>
-        </tr>
-        <tr>
-          <td style="width:140px">Repeat</td>
-          <td style="width:296px"><input type="number" name="repeat" value="1"></td>
-        </tr>
-      </tbody>
-    </table>
-    <button type="submit">Download</button>
-  </form>
-  <div id="message"></div>
-  <script>
-    function restoreData() {
-      const storedUrl = decodeURIComponent(getCookie('url'));
-      const storedStart = getCookie('start');
-      const storedFinish = getCookie('finish');
-      const storedRepeat = getCookie('repeat');
-      const storedBookName = decodeURIComponent(getCookie('bookName'));
+    <h1>Epub editor</h1>
 
-      // Pre-fill the input fields with the stored values
-      if (storedUrl && storedStart && storedFinish) {
-        document.querySelector('input[name="bookName"]').value = storedBookName;
-        document.querySelector('input[name="url"]').value = storedUrl;
-        document.querySelector('input[name="start"]').value = storedStart;
-        document.querySelector('input[name="finish"]').value = storedFinish;
-        document.querySelector('input[name="repeat"]').value = storedRepeat;
-      }
-    }
-    restoreData();
-    const form = document.getElementById('downloadForm');
-    const messageDiv = document.getElementById('message');
-
-    // Retrieve the stored cookies
-
-
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      messageDiv.textContent = 'Downloading...';
-
-      const formData = new FormData(form);
-      const bookName = formData.get('bookName');
-      const url = formData.get('url');
-      const start = formData.get('start');
-      const finish = formData.get('finish');
-      const repeat = formData.get('repeat');
-      try {
-        const response = await fetch('/download', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ bookName, url, start, finish, repeat }),
-        });
-
-        if (response.ok) {
-          messageDiv.textContent = 'Download completed.';
-          //reset the page number
-          const storedStart = getCookie('start');
-          const storedFinish = getCookie('finish');
-          document.querySelector('input[name="start"]').value = storedStart;
-          document.querySelector('input[name="finish"]').value =  storedFinish ;
-        } else {
-          messageDiv.textContent = 'An error occurred during download.';
+    <button onclick="goback()">ixdzs.tw/read</button>
+    <div id="message"></div>
+    <script>
+        function goback() {
+            document.getElementById("message").innerHTML = "Hello World";
         }
-      } catch (error) {
-        console.error('Error:', error.message);
-        messageDiv.textContent = 'An error occurred during download.';
-      }
-    });
 
-    // Function to retrieve a specific cookie value
-    function getCookie(name) {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.startsWith(`${name}=`)) {
-          return cookie.substring(name.length + 1);
-        }
-      }
-      return '';
-    }
-  </script>
+    </script>
 </body>
 
 </html>
