@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require('multer');
 const path = require('path');
 const axios = require("axios");
 const cheerio = require("cheerio");
@@ -7,7 +8,7 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = 3000;
-
+const upload = multer({ dest: 'uploads/' });
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -16,7 +17,22 @@ app.use(cookieParser());
 app.get('/main', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'main.html'));
 });
+app.post('/upload', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
+  }
 
+  // File upload successful, move the file to a specific directory
+  const destinationDir = 'uploads/';
+  const fileName = req.body.file;
+  const filePath = destinationDir + fileName;
+
+  // Move the file to the destination directory
+  const fs = require('fs');
+  fs.renameSync(req.file.path, filePath);
+
+  res.redirect('/');
+});
 app.post("/download", async (req, res) => {
   // const url = req.body.url;
   // const start = parseInt(req.body.start);
@@ -47,13 +63,13 @@ app.post("/download", async (req, res) => {
         // Load the HTML content into Cheerio
         const $ = cheerio.load(html);
         const articleElement = $("article");
-
-        // Extract all the paragraphs within the article
+         // Extract all the paragraphs within the article
         const allparagraphs = articleElement.find("p");
         const chaptertitle = articleElement.find("h3");
         const paragraphs = allparagraphs.filter((index, element) => {
           return $(element).attr("class") === undefined;
         });
+        
         // Combine paragraphs into a single text string
         if (chaptertitle.length > 0)
           combinedText += "<h3 style=\"color:red;\">" + $(chaptertitle[0]).text() + "</h3>\n";
