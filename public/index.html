@@ -29,32 +29,21 @@
       border-radius: 4px;
       cursor: pointer;
     }
+    div {
+  line-height: 2em; /* Set line spacing to 1.5 times the font size */
+}
 </style>
 
 <body>
-    <h1>Epub editor aa   aaa</h1>
-    <form id="myForm" action="/upload" method="POST" enctype="multipart/form-data">
-      <div id="filelist"></div>
-      <input type="file" id="fileInput" name="file" ><br>
-      <label for="fileInput" class="custom-file-button">Select File</label><br><br>
-      <input type="submit" value="Upload">
-    </form>
-    <a href="/main"><button>Go to Main</button></a>
+    <h1>Text Tool Main Page</h1>
+<div id="linklist">
+  <a href="/download"><button>Download Web Chapters</button></a><br> 
+  <a href="/uploadepub"><button>Extract Epub</button></a><br>
+  <a href="/testsocket"><button>Test Socket</button></a>
+</div>
     <div id="message"></div>
     <script>
- const filesDiv = document.getElementById('filelist');
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-      const fileInput = event.target;
-      const fileName = fileInput.files[0].name;
-   
-      const fileField = document.createElement('input');
  
-      fileField.name = 'file';
-      fileField.value = fileName ;
-    
-      filesDiv.appendChild(fileField);
-      filesDiv.appendChild(document.createElement('br'));
-    });
     </script>
 </body>
 

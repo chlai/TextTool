@@ -18,6 +18,9 @@
     -moz-box-sizing: border-box;
   }
 </style>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js'
+  integrity='sha512–74AKPNm8Tfd5E9c4otg7XNkIVfIe5ynON7wehpX/9Tv5VYcZvXZBAlcgOAjLHg6HeWyLujisAnle6+iKnyWd9Q=='
+  crossorigin='anonymous'></script>
 
 <body>
   <h1>Web Content Downloader</h1>
@@ -46,8 +49,10 @@
         </tr>
       </tbody>
     </table>
-    <button type="submit">Download</button>
+    <button type="submit">Download</button><br>
+
   </form>
+  <a href="/"><button>Go to Main</button></a>
   <div id="message"></div>
   <script>
     function restoreData() {
@@ -84,6 +89,13 @@
       const finish = formData.get('finish');
       const repeat = formData.get('repeat');
       try {
+        const socket = io.connect();
+
+        // Listen for messages from the server
+        socket.on('chapter', (data) => {
+           messageDiv.textContent = data;
+        });
+
         const response = await fetch('/download', {
           method: 'POST',
           headers: {
@@ -91,14 +103,15 @@
           },
           body: JSON.stringify({ bookName, url, start, finish, repeat }),
         });
-
+        messageDiv.textContent = 'Disconnecting...';
+        socket.close();
         if (response.ok) {
           messageDiv.textContent = 'Download completed.';
           //reset the page number
           const storedStart = getCookie('start');
           const storedFinish = getCookie('finish');
           document.querySelector('input[name="start"]').value = storedStart;
-          document.querySelector('input[name="finish"]').value =  storedFinish ;
+          document.querySelector('input[name="finish"]').value = storedFinish;
         } else {
           messageDiv.textContent = 'An error occurred during download.';
         }

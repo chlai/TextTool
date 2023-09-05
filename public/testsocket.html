@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Socket.IO Client Example</title>
+  </head>
+  <body>
+    <h1>Socket.IO Client Example</h1>
+    <p id="message">Waiting for server messages...</p>
+
+    <!-- Include the Socket.IO client library -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js' integrity='sha512–74AKPNm8Tfd5E9c4otg7XNkIVfIe5ynON7wehpX/9Tv5VYcZvXZBAlcgOAjLHg6HeWyLujisAnle6+iKnyWd9Q==' crossorigin='anonymous'></script>
+
+    <script>
+      // Connect to the server
+ 
+      const socket = io.connect();
+
+      // Listen for messages from the server
+      socket.on('message', (data) => {
+        const message = document.getElementById('message');
+        message.innerText = data;
+      });
+    </script>
+  </body>
+</html>
