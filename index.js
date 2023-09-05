@@ -9,7 +9,7 @@ const socketIo = require("socket.io");
 const app = express();
 const port = 3000;
 const upload = multer({ dest: "uploads/" });
-let processSocket = null;
+var processSocket = null;
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -86,7 +86,7 @@ app.post("/download", async (req, res) => {
           combinedText +=
             '<h3 style="color:red;">' + $(chaptertitle[0]).text() + "</h3>\n";
           if (processSocket != null) {
-            processSocket.emit("progress", $(chaptertitle[0]).text());
+            processSocket.emit("chapter", $(chaptertitle[0]).text());
           }
         }
         paragraphs.each((index, element) => {
