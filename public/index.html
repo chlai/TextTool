@@ -28,18 +28,28 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      font-size: x-large;
+    }
+    .mybutton {
+      padding: 10px 10px;
+      background-color: #eaeaea;
+      border: 2px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: x-large;
     }
     div {
-  line-height: 2em; /* Set line spacing to 1.5 times the font size */
+  line-height: 4em; /* Set line spacing to 1.5 times the font size */
 }
 </style>
 
 <body>
     <h1>Text Tool Main Page</h1>
 <div id="linklist">
-  <a href="/download"><button>Download Web Chapters</button></a><br> 
-  <a href="/uploadepub"><button>Extract Epub</button></a><br>
-  <a href="/testsocket"><button>Test Socket</button></a>
+  <a href="/download"><button  class = "mybutton">Download Web Chapters</button></a><br> 
+  <a href="/uploadepub"><button class = "mybutton">Extract Epub</button></a><br>
+  <a href="/testwebsocket"><button class = "mybutton">Test WebSocket</button></a><br>
+  <a href="/testsocket"><button class = "mybutton">Test Socket.Io</button></a>
 </div>
     <div id="message"></div>
     <script>

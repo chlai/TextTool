@@ -3,44 +3,50 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Socket.IO Client Example</title>
+    <title>WebSocket Client Example</title>
 </head>
 
 <body>
     <div>
-        <h1>Socket.IO Client Example</h1>
+        <h1>WebSocket Client Example</h1>
         <button id="connectButton">Connect</button>
-        <button id="sendButton"  disabled>Send</button>
+        <button id="sendButton" disabled>Send</button>
         <button id="stopButton">Disconnect</button>
         <p id="message">Off line</p>
     </div>
     <!-- Include the Socket.IO client library -->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js'
-      ></script>  
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js'></script>
     <script>
         // Connect to the server
 
-        var socket = null;
+        var webSocket = null;
+
         const message = document.getElementById('message');
         // Listen for messages from the server
         // Send a message to the server when the Send button is clicked
         const sendButton = document.getElementById('sendButton');
         sendButton.addEventListener('click', () => {
-            socket.emit('message', new Date().toISOString());
+            webSocket.send( new Date().toISOString());
         });
         const connectButton = document.getElementById('connectButton');
         connectButton.addEventListener('click', () => {
-            socket = io.connect();
-            socket.on('progress', (data) => {
-                message.innerText = data;
-            });
+        webSocket = new WebSocket( `ws://${location.hostname}:30009`);
+            webSocket.onopen = () => {
+                console.log('WebSocket connection opened');
+            };
+            webSocket.onmessage = (event) => {
+                message.innerText = event.data;
+            };
+            webSocket.onclose = () => {
+                console.log('WebSocket connection closed');
+            };
             sendButton.disabled = false;
             message.innerHTML = "<h1> On line</h1>";
-
         });
+        
         const stopButton = document.getElementById('stopButton');
         stopButton.addEventListener('click', () => {
-            socket.close();
+            webSocket.close();
             sendButton.disabled = true;
             message.innerText = "Off line";
         });

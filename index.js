@@ -6,8 +6,11 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const cookieParser = require("cookie-parser");
 const socketIo = require("socket.io");
+const WebSocket = require('ws');
 const app = express();
 const port = 3000;
+
+const webserver = new WebSocket.Server({ port: 30009 });
 const upload = multer({ dest: "uploads/" });
 var processSocket = null;
 app.use(express.static("public"));
@@ -27,7 +30,9 @@ app.get("/uploadepub", (req, res) => {
 app.get("/testsocket", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "testsocket.html"));
 });
-
+app.get("/testwebsocket", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "testwebsocket.html"));
+});
 app.post("/upload", upload.single("file"), (req, res) => {
   if (!req.file) {
     return res.status(400).send("No file uploaded.");
@@ -139,8 +144,8 @@ const io = socketIo(server);
 //socket is return from html page io.connect
 io.on("connection", (socket) => {
   const referer = socket.request.headers.referer;
-  console.log(`Client connected from ${referer}`);
-  if (referer.includes('testsocket')) {
+  console.log(`Client connected from ${referer}\n${new Date()}`);
+  if (referer.includes("testsocket")) {
     //it is a demo for socket.io
     const timer = setInterval(() => {
       // Generate a random progress value between 0 and 100
@@ -152,11 +157,35 @@ io.on("connection", (socket) => {
         clearInterval(timer);
       }
     }, 1000);
+    socket.on('message', (data) => {
+      console.log(`Received message: ${data}`);
+      // Do something with the message data
+    });
   } else if (referer.includes("download")) {
     processSocket = socket;
   }
   socket.on("disconnect", () => {
-    console.log("Client " + socket.request.headers.referer+" disconnected");
+    console.log(
+      "Client " +
+        socket.request.headers.referer +
+        " disconnected.\n" +
+        new Date()
+    );
     processSocket = null;
+  });
+});
+
+webserver.on('connection', (socket) => {
+  console.log('WebSocket client connected');
+
+  socket.on('message', (message) => {
+    console.log(`Received message: ${message}`);
+
+    // Send a response message back to the client
+    socket.send(`You said: ${message}`);
+  });
+
+  socket.on('close', () => {
+    console.log('WebSocket Client disconnected');
   });
 });
