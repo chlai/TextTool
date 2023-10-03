@@ -50,12 +50,15 @@
       </tbody>
     </table>
     <button type="submit">Download</button><br>
-
+    
+ 
   </form>
-  <a href="/"><button>Go to Main</button></a>
+  <a href="/"><button>Go to Main</button></a><br>
+  <button onclick="restoreData()">Get Last Chapters</button>
   <div id="message"></div>
   <script>
-    function restoreData() {
+ 
+function restoreData() {
       const storedUrl = decodeURIComponent(getCookie('url'));
       const storedStart = getCookie('start');
       const storedFinish = getCookie('finish');
@@ -71,12 +74,12 @@
         document.querySelector('input[name="repeat"]').value = storedRepeat;
       }
     }
-    restoreData();
+    document.querySelector('input[name="start"]').value = 1;
+    document.querySelector('input[name="finish"]').value = 10;
     const form = document.getElementById('downloadForm');
     const messageDiv = document.getElementById('message');
 
     // Retrieve the stored cookies
-
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();

@@ -6,13 +6,14 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const cookieParser = require("cookie-parser");
 const socketIo = require("socket.io");
-const WebSocket = require('ws');
+const WebSocket = require("ws");
 const app = express();
 const port = 3000;
 
 const webserver = new WebSocket.Server({ port: 30009 });
 const upload = multer({ dest: "uploads/" });
 var processSocket = null;
+var stopDownload = false;
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -57,25 +58,52 @@ app.post("/download", async (req, res) => {
   try {
     let startLocal = parseInt(start);
     let finishLocal = parseInt(finish);
+    const headers =
+      "<!DOCTYPE html>\n" +
+      "<html>\n" +
+      "<head>\n" +
+      '<meta charset="utf-8">\n' +
+      "<title>Web Content Downloader</title>\n" +
+      "</head>\n" +
+      "<body>\n" +
+      '<button id ="_tableofcontent" type="button" style="width: 100%;text-align: left;" >*</button>\n' +
+      '<div style="display:none;">';
     let combinedText = "";
+    let tableOfContent = "";
+    let currentTitle = "";
     let repeatLocal = parseInt(repeat);
+    stopDownload = false;
     const diff = finishLocal - startLocal;
-    const htmltail = "</body>\n</html>\n";
-    for (let repeatCount = 0; repeatCount < repeatLocal; repeatCount++) {
-      combinedText =
-        "<!DOCTYPE html>\n" +
-        "<html>\n" +
-        "<head>\n" +
-        '<meta charset="utf-8">\n' +
-        "<title>Web Content Downloader</title>\n" +
-        "</head>\n" +
-        "<body>\n";
-      for (let index = startLocal; index <= finishLocal; index++) {
+    const script =
+      "<script>\n" +
+      'var coll = document.getElementById("_tableofcontent");\n' +
+      'coll.addEventListener("click", function() {\n' +
+      "var content = this.nextElementSibling;\n" +
+      'if (content.style.display === "block") {\n' +
+      'content.style.display = "none";\n' +
+      "} else {\n" +
+      'content.style.display = "block";\n' +
+      "}\n" +
+      "});\n" +
+      "</script>\n";
+    const htmltail =
+      '<br>\n<a href="#_tableofcontent">文件結束</a>' +
+      script +
+      "</body>\n</html>\n";
+    for (
+      let repeatCount = 0;
+      repeatCount < repeatLocal && !stopDownload;
+      repeatCount++
+    ) {
+      for (
+        let index = startLocal;
+        index <= finishLocal && !stopDownload;
+        index++
+      ) {
         const currentUrl = `${url}${index}.html`;
         // Fetch the HTML content of the webpage
         const response = await axios.get(currentUrl);
         const html = response.data;
-
         // Load the HTML content into Cheerio
         const $ = cheerio.load(html);
         const articleElement = $("article");
@@ -88,24 +116,37 @@ app.post("/download", async (req, res) => {
 
         // Combine paragraphs into a single text string
         if (chaptertitle.length > 0) {
+          currentTitle = $(chaptertitle[0]).text();
+          tableOfContent += `<a href="#_name${index}">${currentTitle}</a><br>\n`;
           combinedText +=
-            '<h3 style="color:red;">' + $(chaptertitle[0]).text() + "</h3>\n";
+            `<a href="#_tableofcontent" name="_name${index}">` +
+            '<h3 style="color:red;">' +
+            currentTitle +
+            "</h3></a>\n";
           if (processSocket != null) {
-            processSocket.emit("chapter", $(chaptertitle[0]).text());
+            processSocket.emit("chapter", currentTitle);
           }
         }
+        let smallParagraphs = "";
         paragraphs.each((index, element) => {
           const paragraphText = $(element).text();
-          combinedText += paragraphText + "\n";
+          smallParagraphs += paragraphText;
+          if (index%10 ==9) {
+            combinedText += "<p>" + smallParagraphs + "</p>\n";
+            smallParagraphs = "";
+          }
         });
+        combinedText += "<p>" + smallParagraphs + "</p>\n";
       }
 
       const fileName = `${bookName}_${startLocal}-${finishLocal}.html`;
 
       const filePath = `C:/Users/User/Dropbox/books/${fileName}`;
-      combinedText += htmltail;
+      combinedText =
+        headers + tableOfContent + "</div>\n" + combinedText + htmltail;
       // Append the combined text to an existing file or create a new file if it doesn't exist
       fs.appendFileSync(filePath, combinedText, "utf8");
+      tableOfContent = "";
       console.log(`Paragraphs appended to: ${filePath}`);
       combinedText = "";
       startLocal = finishLocal + 1;
@@ -157,7 +198,7 @@ io.on("connection", (socket) => {
         clearInterval(timer);
       }
     }, 1000);
-    socket.on('message', (data) => {
+    socket.on("message", (data) => {
       console.log(`Received message: ${data}`);
       // Do something with the message data
     });
@@ -165,6 +206,7 @@ io.on("connection", (socket) => {
     processSocket = socket;
   }
   socket.on("disconnect", () => {
+    stopDownload = true;
     console.log(
       "Client " +
         socket.request.headers.referer +
@@ -175,17 +217,17 @@ io.on("connection", (socket) => {
   });
 });
 
-webserver.on('connection', (socket) => {
-  console.log('WebSocket client connected');
+webserver.on("connection", (socket) => {
+  console.log("WebSocket client connected");
 
-  socket.on('message', (message) => {
+  socket.on("message", (message) => {
     console.log(`Received message: ${message}`);
 
     // Send a response message back to the client
     socket.send(`You said: ${message}`);
   });
 
-  socket.on('close', () => {
-    console.log('WebSocket Client disconnected');
+  socket.on("close", () => {
+    console.log("WebSocket Client disconnected");
   });
 });

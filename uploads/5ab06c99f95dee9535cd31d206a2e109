@@ -1,0 +1,1130 @@
+{
+  "nodeType": 0,
+  "name": "ROOT",
+  "nodeChildren": [
+    {
+      "nodeType": 3,
+      "name": "切割右邊直線",
+      "dataParameter": {
+        "weld": {
+          "basic": {
+            "gunSpeed": 0.005,
+            "gunAcceleration": 0.0,
+            "approachSpeed": 0.02,
+            "approachDistance": 0.04,
+            "poseControl": "AllFixed"
+          },
+          "whip": {
+            "upsideDown": false,
+            "pitch": 0.005,
+            "width": 0.004,
+            "depth": 0.004,
+            "pauseAtTheTop": 0.0,
+            "pauseAtTheBottom": 0.0,
+            "pathLocate": 0,
+            "normalTwist": 0.0,
+            "blendingRadius": 0.0,
+            "enableIntermittentWelding": false,
+            "intermittentWeldingPitch": 0.002,
+            "intermittentWeldingDuration": 0.0015,
+            "intermittentWeldingPause": 5.0E-4
+          },
+          "adjustmentsForEveryPoint": {
+            "inset": "-.0000320095 .0000000000 -.0000177409",
+            "weldingAngle": ".0000048209 -.0569346308 1.7522310074",
+            "weldgunGap": 0.0
+          },
+          "adjustmentsFromReferenceFeaturePlusPoint": {
+            "inset": "-.0000320095 .0000000000 -.0000177409",
+            "weldingAngle": ".0000048209 -.0569346308 1.7522310074",
+            "weldgunGap": 0.0
+          },
+          "edgeControl": {
+            "startingPause": 0.0,
+            "startingExtension": 0.0,
+            "startingDistance": 0.0,
+            "startingSpeed": 0.005,
+            "endingPause": 0.0,
+            "endingExtension": 0.0,
+            "endingDistance": 0.0,
+            "endingSpeed": 0.005,
+            "endingOverlap": 0.0
+          },
+          "edgeTechnique": {
+            "enableEdgeTechnique": false,
+            "edgePosition": "START",
+            "startingInitialDirection": "FORWARD",
+            "startingInitialDistance": 0.01,
+            "startingInitialSpeed": 0.022,
+            "startingReverseDistance": 0.01,
+            "startingReverseSpeed": 0.022,
+            "endingInitialDirection": "BACKWARD",
+            "endingInitialDistance": 0.01,
+            "endingInitialSpeed": 0.022,
+            "endingReverseDistance": 0.01,
+            "endingReverseSpeed": 0.022
+          },
+          "misc": {
+            "brand": "Lincoln",
+            "voltage": 21.0,
+            "wireFeedSpeed": 140.0,
+            "volumeFeedRate": 80.0,
+            "weldHeadTemperature": 100.0,
+            "weldTailTemperature": 100.0,
+            "lowestCurrent": 50.0,
+            "highestCurrent": 50.0,
+            "diameter": 0.002,
+            "weldingTechnique": "Flat"
+          },
+          "layer": {
+            "layerType": "FIRST_LAYER",
+            "layerTypeComboBoxIsDisabled": false,
+            "layerNumber": 2
+          }
+        },
+        "bypass": {
+          "weldgunPower": false,
+          "invalidPathConfirm": false,
+          "bindWorkAndTwistAngle": false
+        },
+        "cornerControl": {
+          "preTurnDistance": 0.001,
+          "preTurnSpeed": 0.003,
+          "turningDistance": 0.01,
+          "turningSpeed": 0.003,
+          "waypointType": "NORMAL"
+        },
+        "dataPose": [
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9056777565, -.2222324547, .1295877714, -1.2439618668, -1.0452528653, -1.0717976950]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9088822085, -.2191433580, .4516906063, -1.2831182561, -1.0196256141, -1.1171177268]"
+          }
+        ]
+      },
+      "nodeChildren": [
+        {
+          "nodeType": 10,
+          "name": "Data Point 1",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9056777565, -.2222324547, .1295877714, -1.2439618668, -1.0452528653, -1.0717976950]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 2",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9088822085, -.2191433580, .4516906063, -1.2831182561, -1.0196256141, -1.1171177268]"
+          }
+        }
+      ]
+    },
+    {
+      "nodeType": 3,
+      "name": "切割左邊直線",
+      "dataParameter": {
+        "weld": {
+          "basic": {
+            "gunSpeed": 0.005,
+            "gunAcceleration": 0.0,
+            "approachSpeed": 0.02,
+            "approachDistance": 0.04,
+            "poseControl": "AllFixed"
+          },
+          "whip": {
+            "upsideDown": false,
+            "pitch": 0.005,
+            "width": 0.004,
+            "depth": 0.004,
+            "pauseAtTheTop": 0.0,
+            "pauseAtTheBottom": 0.0,
+            "pathLocate": 0,
+            "normalTwist": 0.0,
+            "blendingRadius": 0.0,
+            "enableIntermittentWelding": false,
+            "intermittentWeldingPitch": 0.002,
+            "intermittentWeldingDuration": 0.0015,
+            "intermittentWeldingPause": 5.0E-4
+          },
+          "adjustmentsForEveryPoint": {
+            "inset": "-.0000329828 .0000000000 .0000886621",
+            "weldingAngle": "-.0001090688 .0211034313 -1.4860568235",
+            "weldgunGap": 0.0
+          },
+          "adjustmentsFromReferenceFeaturePlusPoint": {
+            "inset": "-.0000329828 .0000000000 .0000886621",
+            "weldingAngle": "-.0001090688 .0211034313 -1.4860568235",
+            "weldgunGap": 0.0
+          },
+          "edgeControl": {
+            "startingPause": 0.0,
+            "startingExtension": 0.0,
+            "startingDistance": 0.0,
+            "startingSpeed": 0.005,
+            "endingPause": 0.0,
+            "endingExtension": 0.0,
+            "endingDistance": 0.0,
+            "endingSpeed": 0.005,
+            "endingOverlap": 0.0
+          },
+          "edgeTechnique": {
+            "enableEdgeTechnique": false,
+            "edgePosition": "START",
+            "startingInitialDirection": "FORWARD",
+            "startingInitialDistance": 0.01,
+            "startingInitialSpeed": 0.022,
+            "startingReverseDistance": 0.01,
+            "startingReverseSpeed": 0.022,
+            "endingInitialDirection": "BACKWARD",
+            "endingInitialDistance": 0.01,
+            "endingInitialSpeed": 0.022,
+            "endingReverseDistance": 0.01,
+            "endingReverseSpeed": 0.022
+          },
+          "misc": {
+            "brand": "Lincoln",
+            "voltage": 21.0,
+            "wireFeedSpeed": 140.0,
+            "volumeFeedRate": 80.0,
+            "weldHeadTemperature": 100.0,
+            "weldTailTemperature": 100.0,
+            "lowestCurrent": 50.0,
+            "highestCurrent": 50.0,
+            "diameter": 0.002,
+            "weldingTechnique": "Flat"
+          },
+          "layer": {
+            "layerType": "FIRST_LAYER",
+            "layerTypeComboBoxIsDisabled": false,
+            "layerNumber": 2
+          }
+        },
+        "bypass": {
+          "weldgunPower": false,
+          "invalidPathConfirm": false,
+          "bindWorkAndTwistAngle": false
+        },
+        "cornerControl": {
+          "preTurnDistance": 0.001,
+          "preTurnSpeed": 0.003,
+          "turningDistance": 0.01,
+          "turningSpeed": 0.003,
+          "waypointType": "NORMAL"
+        },
+        "dataPose": [
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9010325723, .1062390222, .1196456340, 1.2449898375, 1.1734779887, -1.1625298880]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9096448337, .1095737477, .4393111727, 1.2220715470, 1.1358716915, -1.1111206247]"
+          }
+        ]
+      },
+      "nodeChildren": [
+        {
+          "nodeType": 10,
+          "name": "Data Point 1",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9010325723, .1062390222, .1196456340, 1.2449898375, 1.1734779887, -1.1625298880]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 2",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9096448337, .1095737477, .4393111727, 1.2220715470, 1.1358716915, -1.1111206247]"
+          }
+        }
+      ]
+    },
+    {
+      "nodeType": 3,
+      "name": "切割中間直線",
+      "dataParameter": {
+        "weld": {
+          "basic": {
+            "gunSpeed": 0.005,
+            "gunAcceleration": 0.0,
+            "approachSpeed": 0.2,
+            "approachDistance": 0.04,
+            "poseControl": "AllFixed"
+          },
+          "whip": {
+            "upsideDown": false,
+            "pitch": 0.005,
+            "width": 0.004,
+            "depth": 0.004,
+            "pauseAtTheTop": 0.0,
+            "pauseAtTheBottom": 0.0,
+            "pathLocate": 0,
+            "normalTwist": 0.0,
+            "blendingRadius": 0.0,
+            "enableIntermittentWelding": false,
+            "intermittentWeldingPitch": 0.002,
+            "intermittentWeldingDuration": 0.0015,
+            "intermittentWeldingPause": 5.0E-4
+          },
+          "adjustmentsForEveryPoint": {
+            "inset": "-.0000099381 .0000000000 .0000016729",
+            "weldingAngle": ".0000033863 .0207950378 1.7098103900",
+            "weldgunGap": 0.0
+          },
+          "adjustmentsFromReferenceFeaturePlusPoint": {
+            "inset": "-.0000099381 .0000000000 .0000016729",
+            "weldingAngle": ".0000033863 .0207950378 1.7098103900",
+            "weldgunGap": 0.0
+          },
+          "edgeControl": {
+            "startingPause": 0.0,
+            "startingExtension": 0.0,
+            "startingDistance": 0.0,
+            "startingSpeed": 0.005,
+            "endingPause": 0.0,
+            "endingExtension": 0.0,
+            "endingDistance": 0.0,
+            "endingSpeed": 0.005,
+            "endingOverlap": 0.0
+          },
+          "edgeTechnique": {
+            "enableEdgeTechnique": false,
+            "edgePosition": "START",
+            "startingInitialDirection": "FORWARD",
+            "startingInitialDistance": 0.01,
+            "startingInitialSpeed": 0.022,
+            "startingReverseDistance": 0.01,
+            "startingReverseSpeed": 0.022,
+            "endingInitialDirection": "BACKWARD",
+            "endingInitialDistance": 0.01,
+            "endingInitialSpeed": 0.022,
+            "endingReverseDistance": 0.01,
+            "endingReverseSpeed": 0.022
+          },
+          "misc": {
+            "brand": "Lincoln",
+            "voltage": 21.0,
+            "wireFeedSpeed": 140.0,
+            "volumeFeedRate": 80.0,
+            "weldHeadTemperature": 100.0,
+            "weldTailTemperature": 100.0,
+            "lowestCurrent": 50.0,
+            "highestCurrent": 50.0,
+            "diameter": 0.002,
+            "weldingTechnique": "Flat"
+          },
+          "layer": {
+            "layerType": "FIRST_LAYER",
+            "layerTypeComboBoxIsDisabled": false,
+            "layerNumber": 2
+          }
+        },
+        "bypass": {
+          "weldgunPower": false,
+          "invalidPathConfirm": false,
+          "bindWorkAndTwistAngle": false
+        },
+        "cornerControl": {
+          "preTurnDistance": 0.001,
+          "preTurnSpeed": 0.003,
+          "turningDistance": 0.01,
+          "turningSpeed": 0.003,
+          "waypointType": "NORMAL"
+        },
+        "dataPose": [
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9095451089, -.1818395413, .3044573665, 2.3803458093, 2.0404613299, -.0653575794]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9132815851, .0752013714, .3016208233, -2.3130353400, -2.0914251976, .0014115022]"
+          }
+        ]
+      },
+      "nodeChildren": [
+        {
+          "nodeType": 10,
+          "name": "Data Point 1",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9095451089, -.1818395413, .3044573665, 2.3803458093, 2.0404613299, -.0653575794]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 2",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.9132815851, .0752013714, .3016208233, -2.3130353400, -2.0914251976, .0014115022]"
+          }
+        }
+      ]
+    },
+    {
+      "nodeType": 3,
+      "name": "切割右邊45度坡口",
+      "dataParameter": {
+        "weld": {
+          "basic": {
+            "gunSpeed": 0.005,
+            "gunAcceleration": 0.0,
+            "approachSpeed": 0.02,
+            "approachDistance": 0.04,
+            "poseControl": "AllFixed"
+          },
+          "whip": {
+            "upsideDown": false,
+            "pitch": 0.005,
+            "width": 0.004,
+            "depth": 0.004,
+            "pauseAtTheTop": 0.0,
+            "pauseAtTheBottom": 0.0,
+            "pathLocate": 0,
+            "normalTwist": 0.0,
+            "blendingRadius": 0.0,
+            "enableIntermittentWelding": false,
+            "intermittentWeldingPitch": 0.002,
+            "intermittentWeldingDuration": 0.0015,
+            "intermittentWeldingPause": 5.0E-4
+          },
+          "adjustmentsForEveryPoint": {
+            "inset": "-.0000333341 .0000000000 .0000002069",
+            "weldingAngle": "-.0000076898 -.0303257024 -1.4119713649",
+            "weldgunGap": -0.003
+          },
+          "adjustmentsFromReferenceFeaturePlusPoint": {
+            "inset": "-.0000333341 .0000000000 .0000002069",
+            "weldingAngle": "-.0000076898 -.0303257024 -1.4119713649",
+            "weldgunGap": -0.003
+          },
+          "edgeControl": {
+            "startingPause": 2.0,
+            "startingExtension": 0.0,
+            "startingDistance": 0.0,
+            "startingSpeed": 0.005,
+            "endingPause": 0.0,
+            "endingExtension": 0.02,
+            "endingDistance": 0.0,
+            "endingSpeed": 0.005,
+            "endingOverlap": 0.0
+          },
+          "edgeTechnique": {
+            "enableEdgeTechnique": false,
+            "edgePosition": "START",
+            "startingInitialDirection": "FORWARD",
+            "startingInitialDistance": 0.01,
+            "startingInitialSpeed": 0.022,
+            "startingReverseDistance": 0.01,
+            "startingReverseSpeed": 0.022,
+            "endingInitialDirection": "BACKWARD",
+            "endingInitialDistance": 0.01,
+            "endingInitialSpeed": 0.022,
+            "endingReverseDistance": 0.01,
+            "endingReverseSpeed": 0.022
+          },
+          "misc": {
+            "brand": "Lincoln",
+            "voltage": 21.0,
+            "wireFeedSpeed": 140.0,
+            "volumeFeedRate": 80.0,
+            "weldHeadTemperature": 100.0,
+            "weldTailTemperature": 100.0,
+            "lowestCurrent": 50.0,
+            "highestCurrent": 50.0,
+            "diameter": 0.002,
+            "weldingTechnique": "Flat"
+          },
+          "layer": {
+            "layerType": "FIRST_LAYER",
+            "layerTypeComboBoxIsDisabled": false,
+            "layerNumber": 2
+          }
+        },
+        "bypass": {
+          "weldgunPower": false,
+          "invalidPathConfirm": false,
+          "bindWorkAndTwistAngle": false
+        },
+        "cornerControl": {
+          "preTurnDistance": 0.001,
+          "preTurnSpeed": 0.003,
+          "turningDistance": 0.01,
+          "turningSpeed": 0.003,
+          "waypointType": "NORMAL"
+        },
+        "dataPose": [
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7487150550, -.2032642538, .1291581791, .7190964194, 1.3987687828, -.5534831103]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7580835915, -.1972222172, .4503638456, .6943961126, 1.4135973457, -.5457712103]"
+          }
+        ]
+      },
+      "nodeChildren": [
+        {
+          "nodeType": 10,
+          "name": "Data Point 1",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7487150550, -.2032642538, .1291581791, .7190964194, 1.3987687828, -.5534831103]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 2",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7580835915, -.1972222172, .4503638456, .6943961126, 1.4135973457, -.5457712103]"
+          }
+        }
+      ]
+    },
+    {
+      "nodeType": 3,
+      "name": "切割左邊45度坡口",
+      "dataParameter": {
+        "weld": {
+          "basic": {
+            "gunSpeed": 0.005,
+            "gunAcceleration": 0.0,
+            "approachSpeed": 0.02,
+            "approachDistance": 0.04,
+            "poseControl": "AllFixed"
+          },
+          "whip": {
+            "upsideDown": false,
+            "pitch": 0.005,
+            "width": 0.004,
+            "depth": 0.004,
+            "pauseAtTheTop": 0.0,
+            "pauseAtTheBottom": 0.0,
+            "pathLocate": 0,
+            "normalTwist": 0.0,
+            "blendingRadius": 0.0,
+            "enableIntermittentWelding": false,
+            "intermittentWeldingPitch": 0.002,
+            "intermittentWeldingDuration": 0.0015,
+            "intermittentWeldingPause": 5.0E-4
+          },
+          "adjustmentsForEveryPoint": {
+            "inset": "-.0000161435 .0000000000 -.0000375213",
+            "weldingAngle": "-.0000215731 .0114241554 1.7859904184",
+            "weldgunGap": -0.001
+          },
+          "adjustmentsFromReferenceFeaturePlusPoint": {
+            "inset": "-.0000161435 .0000000000 -.0000375213",
+            "weldingAngle": "-.0000215731 .0114241554 1.7859904184",
+            "weldgunGap": -0.001
+          },
+          "edgeControl": {
+            "startingPause": 2.0,
+            "startingExtension": 0.002,
+            "startingDistance": 0.0,
+            "startingSpeed": 0.005,
+            "endingPause": 0.0,
+            "endingExtension": 0.03,
+            "endingDistance": 0.0,
+            "endingSpeed": 0.005,
+            "endingOverlap": 0.0
+          },
+          "edgeTechnique": {
+            "enableEdgeTechnique": false,
+            "edgePosition": "START",
+            "startingInitialDirection": "FORWARD",
+            "startingInitialDistance": 0.01,
+            "startingInitialSpeed": 0.022,
+            "startingReverseDistance": 0.01,
+            "startingReverseSpeed": 0.022,
+            "endingInitialDirection": "BACKWARD",
+            "endingInitialDistance": 0.01,
+            "endingInitialSpeed": 0.022,
+            "endingReverseDistance": 0.01,
+            "endingReverseSpeed": 0.022
+          },
+          "misc": {
+            "brand": "Lincoln",
+            "voltage": 21.0,
+            "wireFeedSpeed": 140.0,
+            "volumeFeedRate": 80.0,
+            "weldHeadTemperature": 100.0,
+            "weldTailTemperature": 100.0,
+            "lowestCurrent": 50.0,
+            "highestCurrent": 50.0,
+            "diameter": 0.002,
+            "weldingTechnique": "Flat"
+          },
+          "layer": {
+            "layerType": "FIRST_LAYER",
+            "layerTypeComboBoxIsDisabled": false,
+            "layerNumber": 2
+          }
+        },
+        "bypass": {
+          "weldgunPower": false,
+          "invalidPathConfirm": false,
+          "bindWorkAndTwistAngle": false
+        },
+        "cornerControl": {
+          "preTurnDistance": 0.001,
+          "preTurnSpeed": 0.003,
+          "turningDistance": 0.01,
+          "turningSpeed": 0.003,
+          "waypointType": "NORMAL"
+        },
+        "dataPose": [
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7549037923, .0845699981, .1294703011, -1.8102599251, -.5283281137, -1.5914283984]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7611522126, .0914772452, .4506745277, -1.7936915270, -.5418849399, -1.5834296220]"
+          }
+        ]
+      },
+      "nodeChildren": [
+        {
+          "nodeType": 10,
+          "name": "Data Point 1",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7549037923, .0845699981, .1294703011, -1.8102599251, -.5283281137, -1.5914283984]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 2",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7611522126, .0914772452, .4506745277, -1.7936915270, -.5418849399, -1.5834296220]"
+          }
+        }
+      ]
+    },
+    {
+      "nodeType": 3,
+      "name": "切割中間上半部份45度坡口",
+      "dataParameter": {
+        "weld": {
+          "basic": {
+            "gunSpeed": 0.005,
+            "gunAcceleration": 0.0,
+            "approachSpeed": 0.02,
+            "approachDistance": 0.04,
+            "poseControl": "Free"
+          },
+          "whip": {
+            "upsideDown": false,
+            "pitch": 0.005,
+            "width": 0.004,
+            "depth": 0.004,
+            "pauseAtTheTop": 0.0,
+            "pauseAtTheBottom": 0.0,
+            "pathLocate": 0,
+            "normalTwist": 0.0,
+            "blendingRadius": 0.0,
+            "enableIntermittentWelding": false,
+            "intermittentWeldingPitch": 0.002,
+            "intermittentWeldingDuration": 0.0015,
+            "intermittentWeldingPause": 5.0E-4
+          },
+          "adjustmentsForEveryPoint": {
+            "inset": ".0000000000 .0000000000 .0000000000",
+            "weldingAngle": ".0000000000 .0000000000 .0000000000",
+            "weldgunGap": 0.0
+          },
+          "adjustmentsFromReferenceFeaturePlusPoint": {
+            "inset": ".0000000000 .0000000000 .0000000000",
+            "weldingAngle": ".0000000000 .0000000000 .0000000000",
+            "weldgunGap": 0.0
+          },
+          "edgeControl": {
+            "startingPause": 0.0,
+            "startingExtension": 0.0,
+            "startingDistance": 0.0,
+            "startingSpeed": 0.005,
+            "endingPause": 0.0,
+            "endingExtension": 0.0,
+            "endingDistance": 0.0,
+            "endingSpeed": 0.005,
+            "endingOverlap": 0.0
+          },
+          "edgeTechnique": {
+            "enableEdgeTechnique": false,
+            "edgePosition": "START",
+            "startingInitialDirection": "FORWARD",
+            "startingInitialDistance": 0.01,
+            "startingInitialSpeed": 0.022,
+            "startingReverseDistance": 0.01,
+            "startingReverseSpeed": 0.022,
+            "endingInitialDirection": "BACKWARD",
+            "endingInitialDistance": 0.01,
+            "endingInitialSpeed": 0.022,
+            "endingReverseDistance": 0.01,
+            "endingReverseSpeed": 0.022
+          },
+          "misc": {
+            "brand": "Lincoln",
+            "voltage": 21.0,
+            "wireFeedSpeed": 140.0,
+            "volumeFeedRate": 80.0,
+            "weldHeadTemperature": 100.0,
+            "weldTailTemperature": 100.0,
+            "lowestCurrent": 50.0,
+            "highestCurrent": 50.0,
+            "diameter": 0.002,
+            "weldingTechnique": "Flat"
+          },
+          "layer": {
+            "layerType": "FIRST_LAYER",
+            "layerTypeComboBoxIsDisabled": false,
+            "layerNumber": 2
+          }
+        },
+        "bypass": {
+          "weldgunPower": false,
+          "invalidPathConfirm": false,
+          "bindWorkAndTwistAngle": false
+        },
+        "cornerControl": {
+          "preTurnDistance": 0.0,
+          "preTurnSpeed": 0.0,
+          "turningDistance": 0.0,
+          "turningSpeed": 0.0,
+          "waypointType": "NORMAL"
+        },
+        "dataPose": [
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7477877364, -.1936246849, .3112594754, -1.1802795627, .0944585356, -2.7395420781]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7472880368, -.1938333550, .2951967474, -1.1805200359, .0943940702, -2.7394725943]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7551398344, .0787231881, .2936951899, -1.1585934083, .0917663902, -2.7482706880]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7554610754, .0789048209, .3126904547, -1.1586230263, .0918570419, -2.7483165215]"
+          }
+        ]
+      },
+      "nodeChildren": [
+        {
+          "nodeType": 10,
+          "name": "Data Point 1",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7477877364, -.1936246849, .3112594754, -1.1802795627, .0944585356, -2.7395420781]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 2",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7472880368, -.1938333550, .2951967474, -1.1805200359, .0943940702, -2.7394725943]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 3",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7551398344, .0787231881, .2936951899, -1.1585934083, .0917663902, -2.7482706880]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 4",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7554610754, .0789048209, .3126904547, -1.1586230263, .0918570419, -2.7483165215]"
+          }
+        }
+      ]
+    },
+    {
+      "nodeType": 3,
+      "name": "切割中間下半部份45度坡口",
+      "dataParameter": {
+        "weld": {
+          "basic": {
+            "gunSpeed": 0.005,
+            "gunAcceleration": 0.0,
+            "approachSpeed": 0.02,
+            "approachDistance": 0.04,
+            "poseControl": "Free"
+          },
+          "whip": {
+            "upsideDown": false,
+            "pitch": 0.005,
+            "width": 0.004,
+            "depth": 0.004,
+            "pauseAtTheTop": 0.0,
+            "pauseAtTheBottom": 0.0,
+            "pathLocate": 0,
+            "normalTwist": 0.0,
+            "blendingRadius": 0.0,
+            "enableIntermittentWelding": false,
+            "intermittentWeldingPitch": 0.002,
+            "intermittentWeldingDuration": 0.0015,
+            "intermittentWeldingPause": 5.0E-4
+          },
+          "adjustmentsForEveryPoint": {
+            "inset": ".0000000000 .0000000000 .0000000000",
+            "weldingAngle": ".0000000000 .0000000000 .0000000000",
+            "weldgunGap": 0.0
+          },
+          "adjustmentsFromReferenceFeaturePlusPoint": {
+            "inset": ".0000000000 .0000000000 .0000000000",
+            "weldingAngle": ".0000000000 .0000000000 .0000000000",
+            "weldgunGap": 0.0
+          },
+          "edgeControl": {
+            "startingPause": 0.0,
+            "startingExtension": 0.0,
+            "startingDistance": 0.0,
+            "startingSpeed": 0.005,
+            "endingPause": 0.0,
+            "endingExtension": 0.0,
+            "endingDistance": 0.0,
+            "endingSpeed": 0.005,
+            "endingOverlap": 0.0
+          },
+          "edgeTechnique": {
+            "enableEdgeTechnique": false,
+            "edgePosition": "START",
+            "startingInitialDirection": "FORWARD",
+            "startingInitialDistance": 0.01,
+            "startingInitialSpeed": 0.022,
+            "startingReverseDistance": 0.01,
+            "startingReverseSpeed": 0.022,
+            "endingInitialDirection": "BACKWARD",
+            "endingInitialDistance": 0.01,
+            "endingInitialSpeed": 0.022,
+            "endingReverseDistance": 0.01,
+            "endingReverseSpeed": 0.022
+          },
+          "misc": {
+            "brand": "Lincoln",
+            "voltage": 21.0,
+            "wireFeedSpeed": 140.0,
+            "volumeFeedRate": 80.0,
+            "weldHeadTemperature": 100.0,
+            "weldTailTemperature": 100.0,
+            "lowestCurrent": 50.0,
+            "highestCurrent": 50.0,
+            "diameter": 0.002,
+            "weldingTechnique": "Flat"
+          },
+          "layer": {
+            "layerType": "FIRST_LAYER",
+            "layerTypeComboBoxIsDisabled": false,
+            "layerNumber": 2
+          }
+        },
+        "bypass": {
+          "weldgunPower": false,
+          "invalidPathConfirm": false,
+          "bindWorkAndTwistAngle": false
+        },
+        "cornerControl": {
+          "preTurnDistance": 0.0,
+          "preTurnSpeed": 0.0,
+          "turningDistance": 0.0,
+          "turningSpeed": 0.0,
+          "waypointType": "NORMAL"
+        },
+        "dataPose": [
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7495777465, -.1884854945, .2699749415, -2.8426321967, .2904888981, -1.1320564319]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7511930320, -.1885033941, .2840447220, -2.8426894649, .2904463906, -1.1321931733]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7572126108, .0846101603, .2828342224, -2.8326444397, .2891504811, -1.1545696660]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7566740023, .0845117863, .2647454151, -2.8326711580, .2893469249, -1.1543352112]"
+          }
+        ]
+      },
+      "nodeChildren": [
+        {
+          "nodeType": 10,
+          "name": "Data Point 1",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7495777465, -.1884854945, .2699749415, -2.8426321967, .2904888981, -1.1320564319]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 2",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7511930320, -.1885033941, .2840447220, -2.8426894649, .2904463906, -1.1321931733]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 3",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7572126108, .0846101603, .2828342224, -2.8326444397, .2891504811, -1.1545696660]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 4",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7566740023, .0845117863, .2647454151, -2.8326711580, .2893469249, -1.1543352112]"
+          }
+        }
+      ]
+    },
+    {
+      "nodeType": 3,
+      "name": "設置中間45度坡口基準參考點",
+      "dataParameter": {
+        "weld": {
+          "basic": {
+            "gunSpeed": 0.005,
+            "gunAcceleration": 0.0,
+            "approachSpeed": 0.02,
+            "approachDistance": 0.04,
+            "poseControl": "AllFixed"
+          },
+          "whip": {
+            "upsideDown": false,
+            "pitch": 0.005,
+            "width": 0.004,
+            "depth": 0.004,
+            "pauseAtTheTop": 0.0,
+            "pauseAtTheBottom": 0.0,
+            "pathLocate": 0,
+            "normalTwist": 0.0,
+            "blendingRadius": 0.0,
+            "enableIntermittentWelding": false,
+            "intermittentWeldingPitch": 0.002,
+            "intermittentWeldingDuration": 0.0015,
+            "intermittentWeldingPause": 5.0E-4
+          },
+          "adjustmentsForEveryPoint": {
+            "inset": "-.0000088565 .0000000000 -.0030000000",
+            "weldingAngle": ".7853981634 -.0146239292 -2.9510162515",
+            "weldgunGap": 0.0
+          },
+          "adjustmentsFromReferenceFeaturePlusPoint": {
+            "inset": "-.0000088565 .0000000000 -.0030000000",
+            "weldingAngle": ".7853981634 -.0146239292 -2.9510162515",
+            "weldgunGap": 0.0
+          },
+          "edgeControl": {
+            "startingPause": 0.0,
+            "startingExtension": 0.0,
+            "startingDistance": 0.0,
+            "startingSpeed": 0.005,
+            "endingPause": 0.0,
+            "endingExtension": 0.0,
+            "endingDistance": 0.0,
+            "endingSpeed": 0.005,
+            "endingOverlap": 0.0
+          },
+          "edgeTechnique": {
+            "enableEdgeTechnique": false,
+            "edgePosition": "START",
+            "startingInitialDirection": "FORWARD",
+            "startingInitialDistance": 0.01,
+            "startingInitialSpeed": 0.022,
+            "startingReverseDistance": 0.01,
+            "startingReverseSpeed": 0.022,
+            "endingInitialDirection": "BACKWARD",
+            "endingInitialDistance": 0.01,
+            "endingInitialSpeed": 0.022,
+            "endingReverseDistance": 0.01,
+            "endingReverseSpeed": 0.022
+          },
+          "misc": {
+            "brand": "Lincoln",
+            "voltage": 21.0,
+            "wireFeedSpeed": 140.0,
+            "volumeFeedRate": 80.0,
+            "weldHeadTemperature": 100.0,
+            "weldTailTemperature": 100.0,
+            "lowestCurrent": 50.0,
+            "highestCurrent": 50.0,
+            "diameter": 0.002,
+            "weldingTechnique": "Flat"
+          },
+          "layer": {
+            "layerType": "FIRST_LAYER",
+            "layerTypeComboBoxIsDisabled": false,
+            "layerNumber": 2
+          }
+        },
+        "bypass": {
+          "weldgunPower": false,
+          "invalidPathConfirm": false,
+          "bindWorkAndTwistAngle": false
+        },
+        "cornerControl": {
+          "preTurnDistance": 0.001,
+          "preTurnSpeed": 0.003,
+          "turningDistance": 0.01,
+          "turningSpeed": 0.003,
+          "waypointType": "NORMAL"
+        },
+        "dataPose": [
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7507805488, -.1929888829, .2884935979, -2.1591217313, .2063787390, -2.1010491724]"
+          },
+          {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7568788378, .0820503098, .2862305293, -2.1094744814, .2584190522, -2.0856471986]"
+          }
+        ]
+      },
+      "nodeChildren": [
+        {
+          "nodeType": 10,
+          "name": "Data Point 1",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7507805488, -.1929888829, .2884935979, -2.1591217313, .2063787390, -2.1010491724]"
+          }
+        },
+        {
+          "nodeType": 10,
+          "name": "Data Point 2",
+          "nodeChildren": [],
+          "dataPose": {
+            "gunSpeed": 0.0,
+            "width": 0.0,
+            "waypointType": "NORMAL",
+            "pose": "p[.7568788378, .0820503098, .2862305293, -2.1094744814, .2584190522, -2.0856471986]"
+          }
+        }
+      ]
+    }
+  ]
+}
