@@ -17,10 +17,73 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
   }
+
+  input[type="number"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+
+  .number-input {
+    border: 2px solid #ddd;
+    display: inline-flex;
+  }
+
+  .number-input,
+  .number-input * {
+    box-sizing: border-box;
+  }
+
+  .number-input button {
+    outline: none;
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+  }
+
+  .number-input button:after {
+    display: inline-block;
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: '\f077';
+    transform: translate(-50%, -50%) rotate(180deg);
+  }
+
+  .number-input button.plus:after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  .number-input input[type=number] {
+    font-family: sans-serif;
+    max-width: 5rem;
+    padding: .5rem;
+    border: solid #ddd;
+    border-width: 0 2px;
+    font-size: 2rem;
+    height: 3rem;
+    font-weight: bold;
+    text-align: center;
+  }
 </style>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js'
   integrity='sha512–74AKPNm8Tfd5E9c4otg7XNkIVfIe5ynON7wehpX/9Tv5VYcZvXZBAlcgOAjLHg6HeWyLujisAnle6+iKnyWd9Q=='
   crossorigin='anonymous'></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+  integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+  crossorigin="anonymous" />
 
 <body>
   <h1>Web Content Downloader</h1>
@@ -37,28 +100,56 @@
         </tr>
         <tr>
           <td style="width:140px">Start chapter</td>
-          <td style="width:296px"><input type="number" name="start" placeholder="Start Index" required></td>
+          <td style="width:296px">
+            <div class="number-input">
+              <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+              <input type="number" name="start" placeholder="Start Index" required>
+              <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+            </div>
+          </td>
         </tr>
         <tr>
           <td style="width:140px">Finish chapter</td>
-          <td style="width:296px"><input type="number" name="finish" placeholder="Finish Index" required></td>
+          <td style="width:296px">
+            <div class="number-input">
+              <button type = "button"  onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+              <input type="number" name="finish" placeholder="Finish Index" required>
+              <button type = "button"  onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+            </div>
+          </td>
         </tr>
         <tr>
           <td style="width:140px">Repeat</td>
-          <td style="width:296px"><input type="number" name="repeat" value="1"></td>
+          <td style="width:296px">
+            <div class="number-input">
+              <button type = "button"  onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+              <input type="number" name="repeat" value="1" min="1" >
+              <button type = "button"  onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:140px">Test Button</td>
+          <td style="width:296px">
+            <div class="number-input">
+              <button type = "button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+              <input min="0" name="quantity" value="1" type="number">
+              <button type = "button"  onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
     <button type="submit">Download</button><br>
-    
- 
+
+
   </form>
   <a href="/"><button>Go to Main</button></a><br>
   <button onclick="restoreData()">Get Last Chapters</button>
   <div id="message"></div>
   <script>
- 
-function restoreData() {
+
+    function restoreData() {
       const storedUrl = decodeURIComponent(getCookie('url'));
       const storedStart = getCookie('start');
       const storedFinish = getCookie('finish');
@@ -96,7 +187,7 @@ function restoreData() {
 
         // Listen for messages from the server
         socket.on('chapter', (data) => {
-           messageDiv.textContent = data;
+          messageDiv.textContent = data;
         });
 
         const response = await fetch('/download', {
