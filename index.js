@@ -54,10 +54,11 @@ app.post("/download", async (req, res) => {
   // const url = req.body.url;
   // const start = parseInt(req.body.start);
   // const finish = parseInt(req.body.finish);
-  const { bookName, url, start, finish, repeat } = req.body;
+  const { bookName, url, start, finish, repeat,offset } = req.body;
   try {
     let startLocal = parseInt(start);
     let finishLocal = parseInt(finish);
+    const offsetvalue = parseInt(offset);
     const headers =
       "<!DOCTYPE html>\n" +
       "<html>\n" +
@@ -100,7 +101,7 @@ app.post("/download", async (req, res) => {
         index <= finishLocal && !stopDownload;
         index++
       ) {
-        const currentUrl = `${url}${index}.html`;
+        const currentUrl = `${url}${index + offsetvalue}.html`;
         // Fetch the HTML content of the webpage
         const response = await axios.get(currentUrl);
         const html = response.data;
@@ -131,7 +132,7 @@ app.post("/download", async (req, res) => {
         paragraphs.each((index, element) => {
           const paragraphText = $(element).text();
           smallParagraphs += paragraphText;
-          if (index%10 ==9) {
+          if (smallParagraphs.length > 300) {
             combinedText += "<p>" + smallParagraphs + "</p>\n";
             smallParagraphs = "";
           }

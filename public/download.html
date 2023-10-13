@@ -92,15 +92,15 @@
       <tbody>
         <tr>
           <td style="width:140px">Book Name</td>
-          <td style="width:296px"> <input type="text" name="bookName" placeholder="Enter Book Name" required></td>
+          <td style="width:300px"> <input type="text" name="bookName" placeholder="Enter Book Name" required></td>
         </tr>
         <tr>
           <td style="width:140px">URL</td>
-          <td style="width:296px"><input type="text" name="url" placeholder="Enter URL" required></td>
+          <td style="width:300px"><input type="text" name="url" placeholder="Enter URL" required></td>
         </tr>
         <tr>
           <td style="width:140px">Start chapter</td>
-          <td style="width:296px">
+          <td style="width:300px">
             <div class="number-input">
               <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
               <input type="number" name="start" placeholder="Start Index" required>
@@ -110,7 +110,7 @@
         </tr>
         <tr>
           <td style="width:140px">Finish chapter</td>
-          <td style="width:296px">
+          <td style="width:300px">
             <div class="number-input">
               <button type = "button"  onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
               <input type="number" name="finish" placeholder="Finish Index" required>
@@ -120,7 +120,7 @@
         </tr>
         <tr>
           <td style="width:140px">Repeat</td>
-          <td style="width:296px">
+          <td style="width:300px">
             <div class="number-input">
               <button type = "button"  onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
               <input type="number" name="repeat" value="1" min="1" >
@@ -129,11 +129,11 @@
           </td>
         </tr>
         <tr>
-          <td style="width:140px">Test Button</td>
-          <td style="width:296px">
+          <td style="width:140px">Offset</td>
+          <td style="width:300px">
             <div class="number-input">
               <button type = "button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-              <input min="0" name="quantity" value="1" type="number">
+              <input  type="number"  name="offset" value="0" min="0">
               <button type = "button"  onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
             </div>
           </td>
@@ -141,8 +141,6 @@
       </tbody>
     </table>
     <button type="submit">Download</button><br>
-
-
   </form>
   <a href="/"><button>Go to Main</button></a><br>
   <button onclick="restoreData()">Get Last Chapters</button>
@@ -182,6 +180,7 @@
       const start = formData.get('start');
       const finish = formData.get('finish');
       const repeat = formData.get('repeat');
+      const offset = formData.get('offset');
       try {
         const socket = io.connect();
 
@@ -195,7 +194,7 @@
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ bookName, url, start, finish, repeat }),
+          body: JSON.stringify({ bookName, url, start, finish, repeat, offset}),
         });
         messageDiv.textContent = 'Disconnecting...';
         socket.close();
