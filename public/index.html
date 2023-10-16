@@ -3,58 +3,95 @@
 
 <head>
   <meta charset="utf-8">
-    <title>Web Content Downloader</title>
+  <title>Web Content Downloader</title>
 </head>
 <style>
-    .indexfield {
-        width: 100px;
-    }
+  .indexfield {
+    width: 100px;
+  }
 
-    input[type="text"],
-    input[type="number"] {
-        width: 100%;
-        box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-    }
-    #fileInput {
-      display: none;
-    }
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
 
-    /* Style the button */
-    .custom-file-button {
-      padding: 10px 15px;
-      background-color: #eaeaea;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: x-large;
-    }
-    .mybutton {
-      padding: 10px 10px;
-      background-color: #eaeaea;
-      border: 2px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: x-large;
-    }
-    div {
-  line-height: 4em; /* Set line spacing to 1.5 times the font size */
-}
+  #fileInput {
+    display: none;
+  }
+
+  /* Style the button */
+  .custom-file-button {
+    padding: 10px 15px;
+    background-color: #eaeaea;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: x-large;
+  }
+
+  .mybutton {
+    padding: 10px 10px;
+    background-color: #eaeaea;
+    border: 2px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: x-large;
+  }
+
+  div {
+    line-height: 4em;
+    /* Set line spacing to 1.5 times the font size */
+  }
 </style>
 
 <body>
-    <h1>Text Tool Main Page</h1>
-<div id="linklist">
-  <a href="/download"><button  class = "mybutton">Download Web Chapters</button></a><br> 
-  <a href="/uploadepub"><button class = "mybutton">Extract Epub</button></a><br>
-  <a href="/testwebsocket"><button class = "mybutton">Test WebSocket</button></a><br>
-  <a href="/testsocket"><button class = "mybutton">Test Socket.Io</button></a>
-</div>
-    <div id="message"></div>
-    <script>
+  <h1>Text Tool Main Page</h1>
+  <div id="linklist">
+    <a href="/download"><button class="mybutton">Download Web Chapters</button></a><br>
+    <a href="/uploadepub"><button class="mybutton">Extract Epub</button></a><br>
+    <a href="/testwebsocket"><button class="mybutton">Test WebSocket</button></a><br>
+    <a href="/testsocket"><button class="mybutton">Test Socket.Io</button></a>
+    <form id="downloadbooklist"  >
+      <div>
+        <input style = "width:50%;font-size:20px" type="text" name="bookpath" placeholder="Enter Start Book URL" required>
+      </div>
+      <div>
+        <input style = "width:50%;font-size:20px" type="text" name="bookpathend" placeholder="Enter Finish Book URL" required>
+        <button class="mybutton" type="submit">Get Book List</button>
+      </div>
+    </form>
+
+  </div>
+  <div id="message"></div>
+  <script>
+const form = document.getElementById('downloadbooklist');
+    const messageDiv = document.getElementById('message');
+    document.getElementsByName("bookpath")[0].value = "https://ixdzs.tw/sort/0/index-4-2-0-1.html";
+    document.getElementsByName("bookpathend")[0].value = "https://ixdzs.tw/sort/0/index-4-2-0-117.html";
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      // Make an AJAX request to the server
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/bookpath');
+    
+      xhr.setRequestHeader('Content-Type','application/json');
+      xhr.onload = () => {
+        // Update the content of the message div with the response text
+        messageDiv.innerHTML = xhr.responseText;
+      };
+      const formData = new FormData(form);
+      const bookpath  = formData.get('bookpath');
+      const bookpathend  = formData.get('bookpathend');
+   
+      xhr.send( JSON.stringify({bookpath, bookpathend}));
+    });
+
  
-    </script>
+  </script>
 </body>
 
 </html>

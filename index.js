@@ -4,20 +4,24 @@ const path = require("path");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs");
+const diff = require("diff");
 const cookieParser = require("cookie-parser");
 const socketIo = require("socket.io");
 const WebSocket = require("ws");
+const { isAsyncFunction } = require("util/types");
 const app = express();
 const port = 3000;
-
+const downloadPath = getDownloadedFilePath();
 const webserver = new WebSocket.Server({ port: 30009 });
 const upload = multer({ dest: "uploads/" });
 var processSocket = null;
 var stopDownload = false;
+
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
@@ -50,11 +54,47 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
   res.redirect("/");
 });
+app.post("/bookpath", async (req, res) => {
+  const { bookpath, bookpathend } = req.body;
+  const contents = getUrlStructure(bookpath, bookpathend)
+  console.log(contents);
+  if(contents.status === "False"){
+    res.send("Unable to get the index of bookpath and bookpathend");
+    return;
+  }
+  let resultStr = "";
+  for (
+    let index = contents.startIndex;
+    index <= contents.endIndex;
+    index++
+  ) {
+    const currentUrl = `${contents.startString}${index}${contents.endString}`;
+    // Fetch the HTML content of the webpage
+    const response = await axios.get(currentUrl);
+    const html = response.data;
+    // Load the HTML content into Cheerio
+    const $ = cheerio.load(html);
+    const mainElement = $("main");
+    // Extract all h3
+    const booknames = mainElement.find("h3");
+
+    booknames.each((k, element) => {
+      const bookname = "<H1>"+ $(element).text()+"</H1>\n";
+      resultStr+=bookname;
+      if(k%20 === 0){
+        console.log( $(element).text());
+      }
+    });
+  
+
+  }
+  res.send(resultStr);
+});
 app.post("/download", async (req, res) => {
   // const url = req.body.url;
   // const start = parseInt(req.body.start);
   // const finish = parseInt(req.body.finish);
-  const { bookName, url, start, finish, repeat,offset } = req.body;
+  const { bookName, url, start, finish, repeat, offset } = req.body;
   try {
     let startLocal = parseInt(start);
     let finishLocal = parseInt(finish);
@@ -142,7 +182,7 @@ app.post("/download", async (req, res) => {
 
       const fileName = `${bookName}_${startLocal}-${finishLocal}.html`;
 
-      const filePath = `C:/Users/User/Dropbox/books/${fileName}`;
+      const filePath = downloadPath + fileName;
       combinedText =
         headers + tableOfContent + "</div>\n" + combinedText + htmltail;
       // Append the combined text to an existing file or create a new file if it doesn't exist
@@ -177,6 +217,48 @@ function getCurrentTimestamp() {
   return timestamp;
 }
 
+function getDownloadedFilePath() {
+  if (process.platform === "win32") {
+    return "C:/Users/User/Dropbox/books/";
+  } else if (process.platform === "linux") {
+    return "/home/chlai/Downloads/TextTool/";
+  } else if (process.platform === "darwin") {
+    return "/Users/chlai/Library/Mobile Documents/com~apple~CloudDocs/TextTool/";
+  }
+
+}
+
+function getUrlStructure(string1, string2) {
+  const regex = /\d+/g;
+  const match1 = string1.match(regex);
+  const match2 = string2.match(regex);
+  if (!match1 || !match2 || match1.length !== match2.length) {
+    return { status: "False" };
+  }
+  //get the index of different element
+  const indexes = [];
+  for (let i = 0; i < match1.length; i++) {
+    if (match1[i] !== match2[i]) {
+      indexes.push(i);
+    }
+  }
+  //check ambiguous
+  if (indexes.length > 1) {
+    return { status: "False" };
+  }
+  //get the first part of string
+  let startIndex = 0;
+  //[0,4,2,0,1] , [0,4,2,0,117] 
+  for (let i = 0; i <= indexes[0]; i++) {
+    startIndex = string1.indexOf(match1[i], startIndex) + match1[i].toString().length;
+  }
+  //part 2
+  const endString = string1.substring(startIndex);
+  const startString = string1.substring(0, startIndex - match1[indexes[0]].toString().length);
+  return { status: "True", startString, endString, startIndex: parseInt(match1[indexes[0]]) , endIndex:parseInt( match2[indexes[0]]) };
+}
+
+
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
@@ -210,9 +292,9 @@ io.on("connection", (socket) => {
     stopDownload = true;
     console.log(
       "Client " +
-        socket.request.headers.referer +
-        " disconnected.\n" +
-        new Date()
+      socket.request.headers.referer +
+      " disconnected.\n" +
+      new Date()
     );
     processSocket = null;
   });
