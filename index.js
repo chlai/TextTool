@@ -32,6 +32,10 @@ app.get("/download", (req, res) => {
 app.get("/uploadepub", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "uploadepub.html"));
 });
+app.get("/booklist", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "bookList.html"));
+});
+
 app.get("/testsocket", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "testsocket.html"));
 });
