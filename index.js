@@ -131,6 +131,14 @@ app.post("/download", async (req, res) => {
   const adminData = JSON.parse(
     fs.readFileSync(path.join(__dirname, "public", "admin.json"))
   );
+
+  fs.mkdir(downloadPath+"books/shelf/"+bookName, (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log("Folder created successfully");
+    }
+  });
   try {
     let startLocal = parseInt(start);
     let finishLocal = parseInt(finish);
@@ -220,10 +228,8 @@ app.post("/download", async (req, res) => {
         });
         combinedText += "<p>" + smallParagraphs + "</p>\n";
       }
-
       const fileName = `${bookName}_${startLocal}-${finishLocal}.html`;
-
-      const filePath = downloadPath + fileName;
+      const filePath = downloadPath+"books/shelf/"+bookName+"/"+fileName;
       combinedText =
         headers + tableOfContent + "</div>\n" + combinedText + htmltail;
       // Append the combined text to an existing file or create a new file if it doesn't exist
