@@ -8,7 +8,7 @@ const diff = require("diff");
 const cookieParser = require("cookie-parser");
 const socketIo = require("socket.io");
 const WebSocket = require("ws");
-const { isAsyncFunction } = require("util/types");
+
 const app = express();
 const port = 3000;
 const downloadPath = getDownloadedFilePath();
