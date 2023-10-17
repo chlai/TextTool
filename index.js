@@ -188,6 +188,17 @@ app.post("/download", async (req, res) => {
         const currentUrl = `${url}${index + offsetvalue}.html`;
         // Fetch the HTML content of the webpage
         const response = await axios.get(currentUrl);
+        if(response.headers["content-length"]<50){
+          console.log("No content found");
+          
+          if(repeatCount==0 && index == startLocal){
+            if (processSocket != null) {
+              processSocket.emit("chapter", "URL not found");
+              return;
+            }
+          }
+          
+        }
         const html = response.data;
         // Load the HTML content into Cheerio
         const $ = cheerio.load(html);
@@ -197,6 +208,12 @@ app.post("/download", async (req, res) => {
           selectkey = adminData.elementType + "." + adminData.class;
         }
         const articleElement = $(selectkey);
+        if(articleElement.length === 0){
+          if (processSocket != null) {
+            processSocket.emit("chapter", "No more chapters");
+          }
+          break;
+        }
         // Extract all the paragraphs within the article
         const allparagraphs = articleElement.find(adminData.paragraphkey);
         const chaptertitle = articleElement.find(adminData.headingkey);
@@ -250,7 +267,9 @@ app.post("/download", async (req, res) => {
       `repeat=${repeat}`,
     ];
     res.setHeader("Set-Cookie", cookieOptions);
-
+    if (processSocket != null) {
+      processSocket.emit("chapter", "Download completed");
+    }
     res.sendStatus(200);
   } catch (error) {
     console.error("Error:", error.message);

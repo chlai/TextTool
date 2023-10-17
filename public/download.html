@@ -199,7 +199,6 @@
         messageDiv.textContent = 'Disconnecting...';
         socket.close();
         if (response.ok) {
-          messageDiv.textContent = 'Download completed.';
           //reset the page number
           const storedStart = getCookie('start');
           const storedFinish = getCookie('finish');
