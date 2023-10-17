@@ -16,13 +16,10 @@ const webserver = new WebSocket.Server({ port: 30009 });
 const upload = multer({ dest: "uploads/" });
 var processSocket = null;
 var stopDownload = false;
-
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-
-
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
@@ -42,6 +39,44 @@ app.get("/testsocket", (req, res) => {
 app.get("/testwebsocket", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "testwebsocket.html"));
 });
+app.get("/admin", (req, res) => {
+  // Read the admin.json file
+  const adminData = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "public", "admin.json"))
+  );
+
+  // Load the admin.html file
+  let adminHtml = fs.readFileSync(
+    path.join(__dirname, "public", "admin.html"),
+    "utf8"
+  );
+  const $ = cheerio.load(adminHtml);
+  $("input[name='elementType']").val(adminData.elementType);
+  $("input[name='class']").val(adminData.class);
+  $("input[name='headingkey']").val(adminData.headingkey);
+  $("input[name='paragraphkey']").val(adminData.paragraphkey);
+  // Modify the input values with the data from admin.json
+
+  // Send the updated HTML to the client
+  res.send($.html());
+});
+app.post("/admin", (req, res) => {
+  // Read the admin.json file
+  const adminData = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "public", "admin.json"))
+  );
+  // Update the data with the form values
+  adminData.elementType = req.body.elementType;
+  adminData.class = req.body.class;
+  adminData.headingkey = req.body.headingkey;
+  adminData.paragraphkey = req.body.paragraphkey;
+  // Write the updated data back to the admin.json file
+  fs.writeFileSync(
+    path.join(__dirname, "public", "admin.json"),
+    JSON.stringify(adminData)
+  );
+  // Send the updated HTML to the client
+});
 app.post("/upload", upload.single("file"), (req, res) => {
   if (!req.file) {
     return res.status(400).send("No file uploaded.");
@@ -60,18 +95,14 @@ app.post("/upload", upload.single("file"), (req, res) => {
 });
 app.post("/bookpath", async (req, res) => {
   const { bookpath, bookpathend } = req.body;
-  const contents = getUrlStructure(bookpath, bookpathend)
+  const contents = getUrlStructure(bookpath, bookpathend);
   console.log(contents);
-  if(contents.status === "False"){
+  if (contents.status === "False") {
     res.send("Unable to get the index of bookpath and bookpathend");
     return;
   }
   let resultStr = "";
-  for (
-    let index = contents.startIndex;
-    index <= contents.endIndex;
-    index++
-  ) {
+  for (let index = contents.startIndex; index <= contents.endIndex; index++) {
     const currentUrl = `${contents.startString}${index}${contents.endString}`;
     // Fetch the HTML content of the webpage
     const response = await axios.get(currentUrl);
@@ -83,14 +114,12 @@ app.post("/bookpath", async (req, res) => {
     const booknames = mainElement.find("h3");
 
     booknames.each((k, element) => {
-      const bookname = "<H1>"+ $(element).text()+"</H1>\n";
-      resultStr+=bookname;
-      if(k%20 === 0){
-        console.log( $(element).text());
+      const bookname = "<H1>" + $(element).text() + "</H1>\n";
+      resultStr += bookname;
+      if (k % 20 === 0) {
+        console.log($(element).text());
       }
     });
-  
-
   }
   res.send(resultStr);
 });
@@ -99,6 +128,9 @@ app.post("/download", async (req, res) => {
   // const start = parseInt(req.body.start);
   // const finish = parseInt(req.body.finish);
   const { bookName, url, start, finish, repeat, offset } = req.body;
+  const adminData = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "public", "admin.json"))
+  );
   try {
     let startLocal = parseInt(start);
     let finishLocal = parseInt(finish);
@@ -151,10 +183,15 @@ app.post("/download", async (req, res) => {
         const html = response.data;
         // Load the HTML content into Cheerio
         const $ = cheerio.load(html);
-        const articleElement = $("article");
+        //extract book content
+        let selectkey = adminData.elementType;
+        if(adminData.class !== ""){
+          selectkey = adminData.elementType + "." + adminData.class;
+        }
+        const articleElement = $(selectkey);
         // Extract all the paragraphs within the article
-        const allparagraphs = articleElement.find("p");
-        const chaptertitle = articleElement.find("h3");
+        const allparagraphs = articleElement.find(adminData.paragraphkey);
+        const chaptertitle = articleElement.find(adminData.headingkey);
         const paragraphs = allparagraphs.filter((index, element) => {
           return $(element).attr("class") === undefined;
         });
@@ -229,7 +266,6 @@ function getDownloadedFilePath() {
   } else if (process.platform === "darwin") {
     return "/Users/chlai/Library/Mobile Documents/com~apple~CloudDocs/TextTool/";
   }
-
 }
 
 function getUrlStructure(string1, string2) {
@@ -252,16 +288,25 @@ function getUrlStructure(string1, string2) {
   }
   //get the first part of string
   let startIndex = 0;
-  //[0,4,2,0,1] , [0,4,2,0,117] 
+  //[0,4,2,0,1] , [0,4,2,0,117]
   for (let i = 0; i <= indexes[0]; i++) {
-    startIndex = string1.indexOf(match1[i], startIndex) + match1[i].toString().length;
+    startIndex =
+      string1.indexOf(match1[i], startIndex) + match1[i].toString().length;
   }
   //part 2
   const endString = string1.substring(startIndex);
-  const startString = string1.substring(0, startIndex - match1[indexes[0]].toString().length);
-  return { status: "True", startString, endString, startIndex: parseInt(match1[indexes[0]]) , endIndex:parseInt( match2[indexes[0]]) };
+  const startString = string1.substring(
+    0,
+    startIndex - match1[indexes[0]].toString().length
+  );
+  return {
+    status: "True",
+    startString,
+    endString,
+    startIndex: parseInt(match1[indexes[0]]),
+    endIndex: parseInt(match2[indexes[0]]),
+  };
 }
-
 
 const server = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
@@ -296,9 +341,9 @@ io.on("connection", (socket) => {
     stopDownload = true;
     console.log(
       "Client " +
-      socket.request.headers.referer +
-      " disconnected.\n" +
-      new Date()
+        socket.request.headers.referer +
+        " disconnected.\n" +
+        new Date()
     );
     processSocket = null;
   });
