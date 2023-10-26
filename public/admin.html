@@ -4,10 +4,25 @@
 <head>
     <title>Admin Form</title>
 </head>
+<style>
+    select {
+        width: 20px;
+    }
+</style>
 
 <body>
     <h1>Admin Form</h1>
+    <p name="data" style="display:none;">It is a hidden html</p>
+    <p>ID: ele#id Class: ele.class</p>
     <form action="/admin" method="POST">
+        <div>
+            <label for="bookurl">Book:</label>
+            <input type="text" id="url" name="bookurl" />
+            <select id='urls' name='urls' onchange="urlChange()">
+            </select>
+
+        </div>
+        <br>
         <label for="element">Content:</label>
         <input type="text" id="element" name="elementType"><br><br>
         <label for="classid">Class:</label>
@@ -19,6 +34,24 @@
         <input type="submit" value="Submit">
     </form>
     <a href="/"><button>Go to Main</button></a><br>
+    <script>
+        function urlChange() {
+            var select = document.getElementById('urls');
+            var input = document.getElementById('url');
+            input.value = select.value;
+            var jsondata = JSON.parse(document.getElementsByName("data")[0].innerHTML);
+            jsondata.configurations.forEach(function(item) {
+                if (item.bookurl == select.value) {
+                    document.getElementById('element').value = item.elementType;
+                    document.getElementById('classid').value = item.class;
+                    document.getElementById('heading').value = item.headingkey;
+                    document.getElementById('paragraph').value = item.paragraphkey;
+                }
+            });
+        }
+
+    </script>
 </body>
+
 
 </html>

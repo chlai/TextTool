@@ -1,1 +1,25 @@
-{"elementType":"div","class":"main","headingkey":"h1.headline","paragraphkey":"p"}
+{
+    "configurations": [
+        {
+            "bookurl": "https://big5.quanben.io/",
+            "elementType": "div",
+            "class": "main",
+            "headingkey": "h1.headline",
+            "paragraphkey": "p"
+        },
+        {
+            "bookurl": "https://ixdzs.tw/",
+            "elementType": "article",
+            "class": "page-content",
+            "headingkey": "h3",
+            "paragraphkey": "p"
+        },
+        {
+            "bookurl": "https://m.lwxs.com/",
+            "elementType": "body",
+            "class": "",
+            "headingkey": "h1",
+            "paragraphkey": "p"
+        }
+    ]
+}

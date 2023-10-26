@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Launch Program",
-            "program": "${workspaceFolder}/src/admin.js",
+            "program": "${workspaceFolder}/src/poc.js",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"

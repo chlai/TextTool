@@ -50,11 +50,20 @@ app.get("/admin", (req, res) => {
     path.join(__dirname, "public", "admin.html"),
     "utf8"
   );
+  const index = 0;
   const $ = cheerio.load(adminHtml);
-  $("input[name='elementType']").val(adminData.elementType);
-  $("input[name='class']").val(adminData.class);
-  $("input[name='headingkey']").val(adminData.headingkey);
-  $("input[name='paragraphkey']").val(adminData.paragraphkey);
+
+  $("input[name='bookurl']").val(adminData.configurations[index].bookurl);
+  $("input[name='elementType']").val(adminData.configurations[index].elementType);
+  $("input[name='class']").val(adminData.configurations[index].class);
+  $("input[name='headingkey']").val(adminData.configurations[index].headingkey);
+  $("input[name='paragraphkey']").val(adminData.configurations[index].paragraphkey);
+  $("p[name='data']").text(JSON.stringify(adminData));
+  if (adminData.configurations.length > 0) {
+    adminData.configurations.forEach(ele => {
+      $("select[name='urls']").append(`<option>${ele.bookurl}</option>`);
+    });
+  }
   // Modify the input values with the data from admin.json
 
   // Send the updated HTML to the client
@@ -65,11 +74,22 @@ app.post("/admin", (req, res) => {
   const adminData = JSON.parse(
     fs.readFileSync(path.join(__dirname, "public", "admin.json"))
   );
-  // Update the data with the form values
-  adminData.elementType = req.body.elementType;
-  adminData.class = req.body.class;
-  adminData.headingkey = req.body.headingkey;
-  adminData.paragraphkey = req.body.paragraphkey;
+  //search for id
+  const index = adminData.configurations.findIndex(config => config.bookurl === req.body.bookurl);
+  if (index === -1) {
+    //add new
+    const config =
+      { bookurl: req.body.bookurl, elementType: req.body.elementType, class: req.body.class, headingkey: req.body.headingkey, paragraphkey: req.body.paragraphkey };
+    adminData.configurations.push(config);
+  } else {
+    // Update the data with the form values
+    adminData.configurations[index].elementType = req.body.elementType;
+    adminData.configurations[index].class = req.body.class;
+    adminData.configurations[index].headingkey = req.body.headingkey;
+    adminData.configurations[index].paragraphkey = req.body.paragraphkey;
+  }
+
+
   // Write the updated data back to the admin.json file
   fs.writeFileSync(
     path.join(__dirname, "public", "admin.json"),
@@ -131,8 +151,14 @@ app.post("/download", async (req, res) => {
   const adminData = JSON.parse(
     fs.readFileSync(path.join(__dirname, "public", "admin.json"))
   );
-
-  fs.mkdir(downloadPath+"/Shelf/"+bookName, (err) => {
+  const indCfg = adminData.configurations.findIndex(ele => url.includes(ele.bookurl));
+  if (indCfg === -1) {
+    if (processSocket != null) {
+      processSocket.emit("chapter", "No setting for this url");
+    }
+    return;
+  }
+  fs.mkdir(downloadPath + "/Shelf/" + bookName, (err) => {
     if (err) {
       console.error(err);
     } else {
@@ -175,11 +201,19 @@ app.post("/download", async (req, res) => {
       '<br>\n<a href="#_tableofcontent">文件結束</a>' +
       script +
       "</body>\n</html>\n";
+    //get the selection keys
+    let selectkey = adminData.configurations[indCfg].elementType;
+    if (adminData.configurations[indCfg].class !== "") {
+      selectkey = adminData.configurations[indCfg].elementType + "." + adminData.configurations[indCfg].class;
+    }
+
+
     for (
       let repeatCount = 0;
       repeatCount < repeatLocal && !stopDownload;
       repeatCount++
     ) {
+      //handle each chapter
       for (
         let index = startLocal;
         index <= finishLocal && !stopDownload;
@@ -188,36 +222,22 @@ app.post("/download", async (req, res) => {
         const currentUrl = `${url}${index + offsetvalue}.html`;
         // Fetch the HTML content of the webpage
         const response = await axios.get(currentUrl);
-        if(response.headers["content-length"]<50){
-          console.log("No content found");
-          
-          if(repeatCount==0 && index == startLocal){
-            if (processSocket != null) {
-              processSocket.emit("chapter", "URL not found");
-              return;
-            }
-          }
-          
-        }
         const html = response.data;
         // Load the HTML content into Cheerio
         const $ = cheerio.load(html);
         //extract book content
-        let selectkey = adminData.elementType;
-        if(adminData.class !== ""){
-          selectkey = adminData.elementType + "." + adminData.class;
-        }
+
         const articleElement = $(selectkey);
-        if(articleElement.length === 0){
+        if (articleElement.length === 0) {
           if (processSocket != null) {
             processSocket.emit("chapter", "No more chapters");
           }
           break;
         }
         // Extract all the paragraphs within the article
-        const allparagraphs = articleElement.find(adminData.paragraphkey);
-        const chaptertitle = articleElement.find(adminData.headingkey);
-        const paragraphs = allparagraphs.filter((index, element) => {
+        const allparagraphs = articleElement.find(adminData.configurations[indCfg].paragraphkey);
+        const chaptertitle = articleElement.find(adminData.configurations[indCfg].headingkey);
+        const paragraphs = allparagraphs.filter((ind, element) => {
           return $(element).attr("class") === undefined;
         });
 
@@ -243,10 +263,22 @@ app.post("/download", async (req, res) => {
             smallParagraphs = "";
           }
         });
-        combinedText += "<p>" + smallParagraphs + "</p>\n";
+        if (smallParagraphs.length > 0) {
+          combinedText += "<p>" + smallParagraphs + "</p>\n";
+        }
       }
+      //reading chapter finish
       const fileName = `${bookName}_${startLocal}-${finishLocal}.html`;
-      const filePath = downloadPath+"Shelf/"+bookName+"/"+fileName;
+      const filePath = downloadPath + "Shelf/" + bookName + "/" + fileName;
+      if (combinedText.length === 0) {
+        if (processSocket != null) {
+          processSocket.emit("chapter", "Empty content");
+        }
+        tableOfContent = "";
+        startLocal = finishLocal + 1;
+        finishLocal = startLocal + diff;
+        continue;
+      }
       combinedText =
         headers + tableOfContent + "</div>\n" + combinedText + htmltail;
       // Append the combined text to an existing file or create a new file if it doesn't exist
@@ -289,7 +321,7 @@ function getDownloadedFilePath() {
   } else if (process.platform === "linux") {
     return "/home/chlai/Downloads/TextTool/";
   } else if (process.platform === "darwin") {
-    return "/Users/chlai/Library/Mobile Documents/com~apple~CloudDocs/TextTool/";
+    return "/Users/chlai/Dropbox/books/";
   }
 }
 
@@ -366,9 +398,9 @@ io.on("connection", (socket) => {
     stopDownload = true;
     console.log(
       "Client " +
-        socket.request.headers.referer +
-        " disconnected.\n" +
-        new Date()
+      socket.request.headers.referer +
+      " disconnected.\n" +
+      new Date()
     );
     processSocket = null;
   });

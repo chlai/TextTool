@@ -14,21 +14,19 @@ async function extractParagraphsFromArticle(url) {
   try {
     // Fetch the HTML content of the webpage
     const response = await axios.get(url);
-    const html = response.data;
-
+    var html = response.data;
     // Load the HTML content into Cheerio
-    const xxx = cheerio.load(html);
+    const xxx = cheerio.load(html, { decodeEntities: false });
 
     // Extract the article element using a specific selector
     // Extract the article element using a specific selector
-    const articleElement = xxx('article');
+    const articleElement = xxx('body');
 
     // Extract all the paragraphs within the article
 
-
     // Extract all the paragraphs within the article
-    const paragraphs = articleElement.find("p");
-    const chaptertitle = articleElement.find("h3");
+    const paragraphs = articleElement.find('div#content');
+    const chaptertitle = articleElement.find("h1");
     const filteredParagraphs = paragraphs.filter((index, element) => {
       return xxx(element).attr("class") === undefined;
     });
@@ -53,11 +51,8 @@ async function extractParagraphsFromArticle(url) {
   }
 }
 
-
-
-
 // Usage example
-const url = "https://ixdzs.tw/read/339561/p1.html"; // Replace with your desired URL
+const url = "https://m.1pwx.com/57_57850/3322.html"; // Replace with your desired URL
 
 const classSelector = ".article-content"; // Replace with the specific class selector
 extractParagraphsFromArticle(url);

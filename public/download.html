@@ -196,7 +196,6 @@
           },
           body: JSON.stringify({ bookName, url, start, finish, repeat, offset}),
         });
-        messageDiv.textContent = 'Disconnecting...';
         socket.close();
         if (response.ok) {
           //reset the page number
