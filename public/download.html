@@ -182,11 +182,14 @@
       const repeat = formData.get('repeat');
       const offset = formData.get('offset');
       try {
-        const socket = io.connect();
-
+        const socket = await io.connect();
+        
         // Listen for messages from the server
-        socket.on('chapter', (data) => {
+        await socket.on('chapter', (data) => {
           messageDiv.textContent = data;
+          if(data.includes('Error')){
+            socket.close();
+          }
         });
 
         const response = await fetch('/download', {

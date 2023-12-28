@@ -154,7 +154,7 @@ app.post("/download", async (req, res) => {
   const indCfg = adminData.configurations.findIndex(ele => url.includes(ele.bookurl));
   if (indCfg === -1) {
     if (processSocket != null) {
-      processSocket.emit("chapter", "No setting for this url");
+      processSocket.emit("chapter", "Error:No setting for this url");
     }
     return;
   }
