@@ -8,6 +8,13 @@
             "paragraphkey": "p"
         },
         {
+            "bookurl": "https://big5.quanben5.com/n/",
+            "elementType": "div",
+            "class": "content",
+            "headingkey": "h1.title1",
+            "paragraphkey": "p"
+        },
+        {
             "bookurl": "https://ixdzs8.tw/",
             "elementType": "article",
             "class": "page-content",
@@ -16,6 +23,13 @@
         },
         {
             "bookurl": "https://ixdzs.tw/",
+            "elementType": "article",
+            "class": "page-content",
+            "headingkey": "h3",
+            "paragraphkey": "p"
+        },
+        {
+            "bookurl": "https://ixdzsw.com/",
             "elementType": "article",
             "class": "page-content",
             "headingkey": "h3",

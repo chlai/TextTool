@@ -1,5 +1,5 @@
 const express = require("express");
-const multer = require("multer");
+const multer = require("multer");         
 const path = require("path");
 const axios = require("axios");
 const cheerio = require("cheerio");
@@ -214,6 +214,7 @@ app.post("/download", async (req, res) => {
       repeatCount++
     ) {
       //handle each chapter
+      let missingLink = 0;
       for (
         let index = startLocal;
         index <= finishLocal && !stopDownload;
@@ -229,10 +230,16 @@ app.post("/download", async (req, res) => {
 
         const articleElement = $(selectkey);
         if (articleElement.length === 0) {
+          //try more attempts
+          missingLink++;
+          if(missingLink>3){ 
           if (processSocket != null) {
             processSocket.emit("chapter", "No more chapters");
           }
-          break;
+          break;} else {
+            continue;
+          }
+
         }
         // Extract all the paragraphs within the article
         const allparagraphs = articleElement.find(adminData.configurations[indCfg].paragraphkey);
