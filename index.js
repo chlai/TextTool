@@ -198,9 +198,9 @@ app.post("/download", async (req, res) => {
       "});\n" +
       "</script>\n";
     const htmltail =
-      '<br>\n<a href="#_tableofcontent">文件結束</a>' +
+      '<br><a href="#_tableofcontent">文件結束</a>' +
       script +
-      "</body>\n</html>\n";
+      "</body></html>\n";
     //get the selection keys
     let selectkey = adminData.configurations[indCfg].elementType;
     if (adminData.configurations[indCfg].class !== "") {
@@ -221,6 +221,21 @@ app.post("/download", async (req, res) => {
         index++
       ) {
         const currentUrl = `${url}${index + offsetvalue}.html`;
+        // Check the existence of the URL
+        try {
+          const responseA = await axios.head(currentUrl);
+          if (!responseA.status === 200) {
+            // URL does not exist, handle the error
+            if (processSocket != null) {
+              processSocket.emit("chapter", `Error: URL ${currentUrl} does not exist`);
+            }
+            continue;
+          }
+        } catch (error) {
+          continue;
+        }
+
+
         // Fetch the HTML content of the webpage
         const response = await axios.get(currentUrl);
         const html = response.data;

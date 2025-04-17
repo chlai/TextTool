@@ -144,6 +144,7 @@
   </form>
   <a href="/"><button>Go to Main</button></a><br>
   <button onclick="restoreData()">Get Last Chapters</button>
+  <button onclick="resetData()">Refresh</button>
   <div id="message"></div>
   <script>
 
@@ -163,6 +164,12 @@
         document.querySelector('input[name="repeat"]').value = storedRepeat;
       }
     }
+    function resetData() {
+      document.querySelector('input[name="start"]').value = 1;
+      document.querySelector('input[name="finish"]').value = 20;
+      document.querySelector('input[name="repeat"]').value = 1;
+    }
+
     document.querySelector('input[name="start"]').value = 1;
     document.querySelector('input[name="finish"]').value = 10;
     const form = document.getElementById('downloadForm');
